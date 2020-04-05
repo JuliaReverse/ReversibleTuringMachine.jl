@@ -17,5 +17,9 @@ You will find a Janus implementation too.
 ## To Start
 
 ```julia pkg
+pkg> add NiLang
+
 pkg> dev https://github.com/GiggleLiu/ReversibleTuringMachine.jl
 ```
+
+The example `examples/counter.jl` implements the counter from reference [Principles of a reversible programming language](https://dl.acm.org/doi/10.1145/1366230.1366239)
