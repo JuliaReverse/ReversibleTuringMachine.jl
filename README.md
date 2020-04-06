@@ -9,7 +9,6 @@ Implements the Quadruple 1-tape Reversible Turing Machine.
 * [Turing Machines](https://plato.stanford.edu/entries/turing-machine/)
 
 ### What is a Reversible Turing Machine?
-You will find a Janus implementation too.
 * [Principles of a reversible programming language](https://dl.acm.org/doi/10.1145/1366230.1366239)
 * [Reversible computing and cellular automata—A survey](https://www.sciencedirect.com/science/article/pii/S030439750800100X)
 
