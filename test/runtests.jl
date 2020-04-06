@@ -6,7 +6,7 @@ using NiLang
     tape = [BLANK, 1, 1, 0, 0, 1]
     q = 3
     rule = Quadruple(3, 1, 0, 2)
-    @instr ReversibleTuringMachine.inst(q, tape[3], rule, 3)
+    @instr ReversibleTuringMachine.instr(q, tape[3], rule, 3)
     @test q == 2
     @test tape[3] == 0
 end

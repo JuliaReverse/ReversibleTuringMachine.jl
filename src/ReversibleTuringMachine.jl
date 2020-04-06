@@ -83,6 +83,13 @@ function is_reversible(rtm::RTM)
     true
 end
 
+"""
+    run!(rtm::RTM, tape, loc, pc; visualize=false)
+
+Run a reversible turing machine `rtm` on `tape`.
+`loc` is the location of reading head,
+`pc` is the program counter used to search rules, normally, one can just set it to `1`.
+"""
 @i function run!(rtm::RTM, tape, loc, pc; visualize=false)
     q ← rtm.qs
     while (q != rtm.qf, q != rtm.qs)
@@ -91,13 +98,12 @@ end
             @safe loc0 = loc
             @safe s0 = tape[loc]
             @safe q0 = q
-            inst(q, tape[loc], rtm.rules[pc], loc)
+            instr(q, tape[loc], rtm.rules[pc], loc)
             @safe if loc != loc0 || s0 != tape[loc] || q != q0
-                #println("—"^(4*length(tape)+1))
                 viz_tape(tape, q, loc, rtm.rules[pc])
             end
         else
-            inst(q, tape[loc], rtm.rules[pc], loc)
+            instr(q, tape[loc], rtm.rules[pc], loc)
         end
         pc += identity(1)
         if (pc == length(rtm.rules)+1, pc == 1)
@@ -107,7 +113,13 @@ end
     q → rtm.qf
 end
 
-@i function inst(q, s, cmd::Quadruple, loc)
+"""
+    instr(q, s, cmd::Quadruple, loc)
+
+For turing machine in state `q`, at location `loc`, reading symbol `s`,
+"Try" to run an instruction `cmd`.
+"""
+@i function instr(q, s, cmd::Quadruple, loc)
     if (q == cmd.q1 && s == cmd.s1, q == cmd.q2 && s == cmd.s2)
         # Symbol rule
         q += cmd.q2 - cmd.q1
@@ -123,7 +135,6 @@ end
     end
 end
 
-export viz_tape
 function viz_tape(tape, q, loc, comment="")
     print(' '^(4*(loc-1)+1))
     print(" $q")
