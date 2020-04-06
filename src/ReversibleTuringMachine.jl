@@ -83,11 +83,22 @@ function is_reversible(rtm::RTM)
     true
 end
 
-@i function run!(rtm::RTM, tape, loc, pc)
+@i function run!(rtm::RTM, tape, loc, pc; visualize=false)
     q ← rtm.qs
     while (q != rtm.qf, q != rtm.qs)
         # state q, at loc
-        inst(q, tape[loc], rtm.rules[pc], loc)
+        if (visualize, ~)
+            @safe loc0 = loc
+            @safe s0 = tape[loc]
+            @safe q0 = q
+            inst(q, tape[loc], rtm.rules[pc], loc)
+            @safe if loc != loc0 || s0 != tape[loc] || q != q0
+                #println("—"^(4*length(tape)+1))
+                viz_tape(tape, q, loc, rtm.rules[pc])
+            end
+        else
+            inst(q, tape[loc], rtm.rules[pc], loc)
+        end
         pc += identity(1)
         if (pc == length(rtm.rules)+1, pc == 1)
             pc -= identity(length(rtm.rules))
@@ -110,6 +121,26 @@ end
             loc -= identity(1)
         end
     end
+end
+
+export viz_tape
+function viz_tape(tape, q, loc, comment="")
+    print(' '^(4*(loc-1)+1))
+    print(" $q")
+    println()
+    print(' '^(4*(loc-1)+1))
+    print(" ↓")
+    if comment != ""
+        print(" ($comment)")
+    end
+    println()
+    print('|')
+    for elem in tape
+        s = string(elem)[1]
+        print(" $s |")
+    end
+    println()
+    println("—"^(4*length(tape)+1))
 end
 
 end # module
