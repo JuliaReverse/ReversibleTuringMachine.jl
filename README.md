@@ -1,5 +1,7 @@
 # ReversibleTuringMachine
 
+Implements the Quadruple 1-tape Reversible Turing Machine.
+
 [![Build Status](https://travis-ci.com/GiggleLiu/ReversibleTuringMachine.jl.svg?branch=master)](https://travis-ci.com/GiggleLiu/ReversibleTuringMachine.jl)
 [![Codecov](https://codecov.io/gh/GiggleLiu/ReversibleTuringMachine.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/GiggleLiu/ReversibleTuringMachine.jl)
 

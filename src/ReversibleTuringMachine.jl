@@ -3,7 +3,7 @@ module ReversibleTuringMachine
 using NiLang
 
 export RTM, Quadruple, quadruples
-export run!, check_reversibility
+export run!, is_deterministic, is_reversible
 export BLANK, SLASH, LEFT, RIGHT, STAY
 
 const BLANK = -10000000
@@ -51,8 +51,36 @@ function Base.show(io::IO, state::Quadruple)
     print(io, q2)
 end
 
-function check_reversibility(rtm::RTM)
-    # deterministic
+function is_deterministic(rtm::RTM)
+    n = length(rtm.rules)
+    for i = 1:n
+        for j = i+1:n
+            ri = rtm.rules[i]
+            rj = rtm.rules[j]
+            if ri.q1 == rj.q1 && ri.s1 == rj.s1
+                return false
+            elseif ri.q1 == rj.q1 && (ri.s1 == SLASH || rj.s1 == SLASH)
+                return false
+            end
+        end
+    end
+    true
+end
+
+function is_reversible(rtm::RTM)
+    n = length(rtm.rules)
+    for i = 1:n
+        for j = i+1:n
+            ri = rtm.rules[i]
+            rj = rtm.rules[j]
+            if ri.q2 == rj.q2 && ri.s2 == rj.s2
+                return false
+            elseif ri.q2 == rj.q2 && (ri.s1 == SLASH || rj.s1 == SLASH)
+                return false
+            end
+        end
+    end
+    true
 end
 
 @i function run!(rtm::RTM, tape, loc, pc)

@@ -26,6 +26,9 @@ end
     @test prog isa Vector{Quadruple{Int,Int}}
 
     rtm = RTM(1,6,prog)
+    @test is_deterministic(rtm)
+    @test is_reversible(rtm)
+
     tape = [BLANK, 1, 1, 0, 0, 1, BLANK]
     loc = 1
     pc = 1
