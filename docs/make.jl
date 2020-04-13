@@ -6,12 +6,12 @@ makedocs(;
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/GiggleLiu/ReversibleTuringMachine.jl/blob/{commit}{path}#L{line}",
+    repo="https://github.com/JuliaReverse/ReversibleTuringMachine.jl/blob/{commit}{path}#L{line}",
     sitename="ReversibleTuringMachine.jl",
-    authors="GiggleLiu",
+    authors="JuliaReverse",
     assets=String[],
 )
 
 deploydocs(;
-    repo="github.com/GiggleLiu/ReversibleTuringMachine.jl",
+    repo="github.com/JuliaReverse/ReversibleTuringMachine.jl",
 )
