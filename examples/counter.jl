@@ -12,13 +12,16 @@ prog = quadruples([
     5 BLANK BLANK 6;
 ])
 
+rtm = RTM(1,6,prog)
+tape = [BLANK, 1, 1, 0, 0, 1, BLANK]
+
 function read_tape(tape)
     sum(tape[2:end-1] .* (1 .<< (0:length(tape)-3)))
 end
 
-function main()
-    rtm = RTM(1,6,prog)
-    tape = [BLANK, 1, 1, 0, 0, 1, BLANK]
+run!(rtm, tape, 1, 1; visualize=true)
+
+function main(rtm, tape)
     loc = 1
     pc = 1
     println("marching forward")
